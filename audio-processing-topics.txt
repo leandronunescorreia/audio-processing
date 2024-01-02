@@ -2,6 +2,7 @@ Audio-Processing: Baby Steps
 
 Introduction
 
+ * não vou ser mais um falando sobre o aparelho auditivo
 
 
 
@@ -18,9 +19,14 @@ Introduction
 2) Second Step
  * openning an audio file
  * seeking the content
+ * libs for audio handling
 
 3) Standing on your own legs
-
   * audio channels
   * stereo
   * 5.1
+
+
+
+books:
+Game Audio Programming 2_ Principles and Practices-CRC-2019-2nd
