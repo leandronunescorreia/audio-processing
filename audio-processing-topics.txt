@@ -1,1 +1,22 @@
 Audio-Processing-Topics
+
+Introduction
+
+
+
+
+For Beginers
+ * Sampled Audio
+ * Sample Rate
+ * Sample Format
+ * Frame
+
+ * formats
+   pcm
+   wav
+
+Intermediate
+
+
+
+Advanced
