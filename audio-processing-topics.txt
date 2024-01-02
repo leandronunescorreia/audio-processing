@@ -1,11 +1,11 @@
-Audio-Processing-Topics
+Audio-Processing: Baby Steps
 
 Introduction
 
 
 
 
-For Beginers
+1) First Step
  * Sampled Audio
  * Sample Rate
  * Sample Format
@@ -15,8 +15,12 @@ For Beginers
    pcm
    wav
 
-Intermediate
+2) Second Step
+ * openning an audio file
+ * seeking the content
 
+3) Standing on your own legs
 
-
-Advanced
+  * audio channels
+  * stereo
+  * 5.1
