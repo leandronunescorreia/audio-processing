@@ -20,6 +20,7 @@ Introduction
  * openning an audio file
  * seeking the content
  * libs for audio handling
+   * fmod
 
 3) Standing on your own legs
   * audio channels
@@ -30,3 +31,29 @@ Introduction
 
 books:
 Game Audio Programming 2_ Principles and Practices-CRC-2019-2nd
+  * basic literacy and code
+
+  
+Game Audio Fundamentals_ An Introduction-Focal Press (2023)[fundamentals]
+ * basic literacy
+
+Getting Started with C++ Audio Programming for Game Development-Packt Publishing (2013)
+ * basic literacy
+ * fmod code
+ * low-level-code
+
+ 
+ Audio Programming in C++. The Beginner Level-leanpub.com (2022)
+   * basic literacy
+   * low-level-code
+   
+   
+The Audio Programming Book-The MIT Press (2010)
+   * basic literacy
+   * low-level-code
+   
+   
+Linux Sound Programming-Apress (2017)
+   * basic literacy
+   * low-level-code
+   * various libs
