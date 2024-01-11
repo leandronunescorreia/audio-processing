@@ -4,21 +4,133 @@ Introduction
 
  * não vou ser mais um falando sobre o aparelho auditivo
 
+C pg7
+ 0 - Onda Sonora
+    É a propagação de uma "onda mecanica acustica", sé uma onda longitudinal(**1) de forma cincuncêntrica, essa onda viaja somente por meios materiais(sólidos, liquidos ou gasosos).
+    (**1)https://pt.wikipedia.org/wiki/Ondas_longitudinais
+
+    Se ao ouvir um som natural podemos ter o desejo de ouvi-lo novamente a qualquer momento através de uma gravação, para isso precisamos capturá-lo usando um dispositivo.
+    O equipamento utilizado para converter sinal analógico em sinal digital é chamado conversor Analógico/Digital. 
+    O Conversor captura uma amostra do som a uma taxa de dezenas de milhares de vezes por segundo.
+    Nesse processo de conversão o audio sofre perdas, quando convertido do domínio continuo(infinito) para o discreto(finito) int32, int16.
+    Esse processo de conversão atingiu um grau elevado de precisão que essa perda não é percebida.
+
+
+ * Audio digital, consiste na representação digital de uma onda sonora por meio de código binário.
+   Aplicação: Armazenamento e reprodução por meio de diversas midias: cd, internet, wav, mp3.
+
+ * A conversão do analógico e digital possibilita uma série de aplicações.
+ Exemplos de aplicações:
+ * O que é processamento de sinais de audio?
+   ** é toda alteração intencional em um sinal de audio.
+ 
+ * sintese sonora (Sound Syntesis)
+   ** é a criação artificial de um sinal de audio, você pode reproduzir um som da natureza, um instrumento musical
+ 
+ * Compressão de Audio
+  ** Algoritmos de Compressão podem reduzir  o tamanho dos arquivos sem comprometer a qualidade. mp3, aac, vorbis. ou o Flac sem perda.
+
+ * Filtros
+   ** Tecnica usada para modificar a frequencia de um audio. A equalização é um tipo básico de filtro, é possível ajustar a frequencia de vários componentes do audio.
+ 
+ * Efeitos de Audio
+   reverb, delay, flanger, chorus.
+
+ * Processamentos de Voz
+  ** afinar a voz em tempo real, clonar uma pessoa.
+
+
+ * As propriedades de um audio digital
+  * A representação digital da Onda
+    1.1 Sine and Cosine
+      gerando uma som 
 
 
 1) First Step
- * Sampled Audio
- * Sample Rate
- * Sample Format
- * Frame
+ * Taxa de amostragem Sample Rate (sample frequency)   44100kHz
 
- * formats
-   pcm
-   wav
+    sample is the state of original analog sound wave at certain time. A series of samples connected describes
+    a section of a sound wave. 
+    
+    Sample rate is the number of samples per second when sampling a continous analog signal to a discrete digtal signal.
+    
+    it is also called sampling frequency or recovery rate.
+    it is measured in HZ hertz.
+
+    exemplo de imagem de um som com sample hate alto e sample rate baixo
+
+
+* Volume
+      É a amplitude de uma onda sonora, uma amplituda alta, produz sons mais altos, enquanto baixas amplitudos sons mais baixos.
+
+      exemplo de imagem de onda com volume auto e baixo
+
+
+* Tonalidade - Pitch
+      É a frequencia das ondas sonoras, altas frequencias produzem valores mais altos, baixas frequências produzem valores mais baixos
+
+      exemplo de imagem de onda com tonalidade auta e baixa
+
+
+ * Bit Depth                        16 bits signed short int / subchunk size
+  ** indica o número de bits usado para representar cada sample
+  ** Maiores valores de bit depth permitem uma representação maior da amplitude do audio
+  ** no pão nosso de cada dia significa as tipagens: int16, int24, int32, float16, float, double
+
+
+ * Bit Rate                         (44100 * 16 * channel_count)/1000
+  ** É a quantidade de bits processados em uma unidade de tempo(segundos/minutos/horas)
+  ** Ele é o produto da taxa de amostragem, da profundidade de bits e do número de canais
+  ** normalmente representado em kbps ou Mbps
+
+* Duration                         (byte length / bit_rate) * 1000
+  ** o tamanho total do arquivo em horas, minutos, segundos...
+
+ * Byte array for PCM data          length of pcm file or wave file minus header
+   ** size of byte-array sampling rate * duration * channels * sizeof(signed short)
+ 
+ * Sample
+   A menor porção de um audio, ele representa parte uma onda em um ponto específico do tempo.
+ * Frame é o conjunto de Samples por amostragem de tempo, normalemte usa valores entre 512 ou 1024 bits
+ representa a estrutura em bytes, um chunk.
+   O que enviaremos para a placa de som naquele momento.
+
+  Se eu tenho 1 segundo de audio 44100hz mono,   significa que eu tenho um chunk-size(frame) 44100 samples
+  Se eu tenho 1 segundo de audio 44100hz stereo,
+     chunk-size = 88200
+     sample-rate 44100
+     
+
+
+   Um valor menor resulta em menos latência entre as operações, mas se for muito pequeno teremos problemas 
+     com a taxa de transferência de áudio e o tamanho do barramento do dispositivo de áudio. 
+     É importante definir um fps, ou quantas vezes por segundo o som será reproduzido.
+     
+     
+* canais
+ ** como os canais são representados de forma sequencial no array
+   Basicamente vamos falar sobre mono e stereo.
+   O som mono tem um canal de audio, e o stereo tem dois, esquerda e direita.
+   Para um som de um segundo a 44100Hz:
+     * Um som mono vai ter 44100 frames( cada frame contendo 512 inteiros ) e teremos 44100 samples.
+
+
+ * Codec
+ C__ pg9, G__ pg229
+   PCM Format
+   wav __C pg 77
 
 2) Second Step
- * openning an audio file
+ * openning an audio file __C pg 78, 79
+ 
+__C pg 75
+ * playing audio data
+   * we need to submit the audio data to sound card. We could use a OS low-level api, 
+   such as portaudio(here describe by os) or use a high-level lib like fmod(here list more libs)
+   
+
  * seeking the content
+   the property int position is important to determine where is the pointer at byte-array
  * libs for audio handling
    * fmod
 
@@ -27,33 +139,58 @@ Introduction
   * stereo
   * 5.1
 
+4) controll everything
+    play
+    pause
+    speed
+    volume
+    pitch
+    octave
+    panning(channel volume)
+    mix multiple sounds
 
+
+The Environment
+  supported languages
+      c++
+        how to configure cmake
+        how to compile to web-assembly
+      
+      python
+      
+      rust
 
 books:
-Game Audio Programming 2_ Principles and Practices-CRC-2019-2nd
+A) Game Audio Programming 2_ Principles and Practices-CRC-2019-2nd
   * basic literacy and code
 
   
-Game Audio Fundamentals_ An Introduction-Focal Press (2023)[fundamentals]
+B) Game Audio Fundamentals_ An Introduction-Focal Press (2023)[fundamentals]
  * basic literacy
 
-Getting Started with C++ Audio Programming for Game Development-Packt Publishing (2013)
+C) Getting Started with C++ Audio Programming for Game Development-Packt Publishing (2013)
  * basic literacy
  * fmod code
  * low-level-code
 
  
- Audio Programming in C++. The Beginner Level-leanpub.com (2022)
+ D) Audio Programming in C++. The Beginner Level-leanpub.com (2022)
    * basic literacy
    * low-level-code
    
    
-The Audio Programming Book-The MIT Press (2010)
+E) The Audio Programming Book-The MIT Press (2010)
    * basic literacy
    * low-level-code
    
    
-Linux Sound Programming-Apress (2017)
+F) Linux Sound Programming-Apress (2017)
    * basic literacy
    * low-level-code
    * various libs
+   
+   
+G) Understand FFMPEG with source code
+   * basic literacy
+   * low-level-code
+   * libav
