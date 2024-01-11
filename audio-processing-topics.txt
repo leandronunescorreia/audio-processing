@@ -6,24 +6,25 @@ Introduction
 
 C pg7
  0 - Onda Sonora
-    É a propagação de uma "onda mecanica acustica", sé uma onda longitudinal(**1) de forma cincuncêntrica, essa onda viaja somente por meios materiais(sólidos, liquidos ou gasosos).
+    É a propagação de uma "onda mecanica acustica", sé uma onda longitudinal(**1) de forma cincuncêntrica, 
+    essa onda viaja somente por meios materiais(sólidos, liquidos ou gasosos).
     (**1)https://pt.wikipedia.org/wiki/Ondas_longitudinais
 
-    Se ao ouvir um som natural podemos ter o desejo de ouvi-lo novamente a qualquer momento através de uma gravação, para isso precisamos capturá-lo usando um dispositivo.
-    O equipamento utilizado para converter sinal analógico em sinal digital é chamado conversor Analógico/Digital. 
+    Se ao ouvir um som natural podemos ter o desejo de ouvi-lo novamente a qualquer momento através de uma gravação. 
+    Para isso precisamos capturá-lo usando um dispositivo. O equipamento utilizado para converter sinal analógico em sinal digital é chamado conversor AD.
     O Conversor captura uma amostra do som a uma taxa de dezenas de milhares de vezes por segundo.
-    Nesse processo de conversão o audio sofre perdas, quando convertido do domínio continuo(infinito) para o discreto(finito) int32, int16.
+    Nesse processo de conversão o audio sofre perdas, quando convertido do domínio continuo(infinito) para o discreto(finito) e dessa forma pode ser armazenado.
     Esse processo de conversão atingiu um grau elevado de precisão que essa perda não é percebida.
 
 
- * Audio digital, consiste na representação digital de uma onda sonora por meio de código binário.
+ * Audio digital, consiste na representação digital de uma onda sonora por meio de uma sequência binaria.
    Aplicação: Armazenamento e reprodução por meio de diversas midias: cd, internet, wav, mp3.
 
- * A conversão do analógico e digital possibilita uma série de aplicações.
- Exemplos de aplicações:
+ * Com a conversão do analógico para o digital nasceu o Processamento de Sinais Digitais, DSP. Digital Signal Processing.
  * O que é processamento de sinais de audio?
    ** é toda alteração intencional em um sinal de audio.
- 
+
+Exemplos de aplicações:
  * sintese sonora (Sound Syntesis)
    ** é a criação artificial de um sinal de audio, você pode reproduzir um som da natureza, um instrumento musical
  
@@ -31,7 +32,8 @@ C pg7
   ** Algoritmos de Compressão podem reduzir  o tamanho dos arquivos sem comprometer a qualidade. mp3, aac, vorbis. ou o Flac sem perda.
 
  * Filtros
-   ** Tecnica usada para modificar a frequencia de um audio. A equalização é um tipo básico de filtro, é possível ajustar a frequencia de vários componentes do audio.
+   ** Tecnica usada para modificar a frequencia de um audio. 
+   A equalização é um tipo básico de filtro, é possível ajustar a frequencia de vários componentes do audio, como os médios, graves e agudos.
  
  * Efeitos de Audio
    reverb, delay, flanger, chorus.
@@ -49,15 +51,38 @@ C pg7
 1) First Step
  * Taxa de amostragem Sample Rate (sample frequency)   44100kHz
 
-    sample is the state of original analog sound wave at certain time. A series of samples connected describes
-    a section of a sound wave. 
+    Uma amostra ou sample é o estado original analógico da onda sonora em um certo periodo do tempo.
+     Uma série de amostras conectadas descrevem um trecho de audio. 
     
-    Sample rate is the number of samples per second when sampling a continous analog signal to a discrete digtal signal.
+    Taxa de amostragem é o número de amostras por uma medida de tempo. quando estamos captando um sinal continuo eanalógio para um sinal discreto e digital.
     
-    it is also called sampling frequency or recovery rate.
-    it is measured in HZ hertz.
+    é também chamado de frequencia de amostragem(samplig rate) ou taxa de recuperação(recevery rate).
+    Normalmente medido em HZ hertz.
 
     exemplo de imagem de um som com sample hate alto e sample rate baixo
+
+   8000hz usado em ligações telefonicas, walkie-talkie, e transmissões wireless
+
+   11.025 Hz: Um quarto da taxa de amostragem de CDs de áudio; 
+   utilizado para PCM de menor qualidade, áudio MPEG e análise de subfaixas de subwoofer.
+
+   16.000 Hz: Extensão de frequência de banda larga sobre o padrão de 8.000 Hz para telefones.
+    Usado na maioria dos produtos modernos de comunicação VoIP e VVoIP.
+
+   22.050 Hz: Metade da taxa de amostragem de CDs de áudio; 
+   usado para PCM de menor qualidade, áudio MPEG e análise em baixa frequência.
+
+   32.000 Hz: Usado em videocassetes digitais miniDV, fitas de vídeo com canais adicionais de áudio, 
+   DAT (modo LP), rádio via satélite digital da Alemanha, áudio digital NICAM, microfones sem fio digitais de alta qualidade.
+
+   44.056 Hz: Usado por áudio digital sincronizado a sinais de vídeo coloridos NTSC.
+
+   44.100 Hz: Padrão para CD de áudio, também amplamente usado com áudio MPEG-1 (VCD, SVCD, MP3).
+
+   48.000 Hz: Taxa padrão de amostragem de áudio usada em equipamentos de vídeo digital profissional, como gravadores de fita, 
+   servidores de vídeo e mesas de mixagem. Frequência comum em equipamentos de áudio profissional, 
+   incluindo consoles de mixagem e dispositivos de gravação digital.
+https://en.wikipedia.org/wiki/Sampling_(signal_processing)
 
 
 * Volume
@@ -77,6 +102,10 @@ C pg7
   ** Maiores valores de bit depth permitem uma representação maior da amplitude do audio
   ** no pão nosso de cada dia significa as tipagens: int16, int24, int32, float16, float, double
 
+  8 bits    0 ~ 255                     1 bit       char
+  16 bits   -32768 ~ 32767              2 bits      signed short / float16
+  
+
 
  * Bit Rate                         (44100 * 16 * channel_count)/1000
   ** É a quantidade de bits processados em uma unidade de tempo(segundos/minutos/horas)
@@ -93,26 +122,32 @@ C pg7
    A menor porção de um audio, ele representa parte uma onda em um ponto específico do tempo.
  * Frame é o conjunto de Samples por amostragem de tempo, normalemte usa valores entre 512 ou 1024 bits
  representa a estrutura em bytes, um chunk.
-   O que enviaremos para a placa de som naquele momento.
+ * Frame possui um sample de cada canal
+ Frame Size = Sample * channels
+ Frame Rate = Frames/second
 
-  Se eu tenho 1 segundo de audio 44100hz mono,   significa que eu tenho um chunk-size(frame) 44100 samples
-  Se eu tenho 1 segundo de audio 44100hz stereo,
-     chunk-size = 88200
-     sample-rate 44100
-     
+  Se eu tenho 1 segundo de audio 44100hz mono, significa que eu tenho um frame 44100 samples
+  Se eu tenho 1 segundo de audio 44100hz stereo, significa que eu tenho 88200 samples, mas o meu frame size ainda é 44100
+     frame = 44100
+     sample-rate = 88200
+https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Basic_concepts_behind_Web_Audio_API
 
+  Chunk-size - ou buffer.
+      São os dados que enviamos para a placa de audio. Normalmente os valores 512 e 1024 são escolhidos.
 
-   Um valor menor resulta em menos latência entre as operações, mas se for muito pequeno teremos problemas 
+  Um valor menor resulta em menos latência entre as operações, mas se for muito pequeno teremos problemas 
      com a taxa de transferência de áudio e o tamanho do barramento do dispositivo de áudio. 
      É importante definir um fps, ou quantas vezes por segundo o som será reproduzido.
      
      
 * canais
  ** como os canais são representados de forma sequencial no array
+
    Basicamente vamos falar sobre mono e stereo.
    O som mono tem um canal de audio, e o stereo tem dois, esquerda e direita.
    Para um som de um segundo a 44100Hz:
-     * Um som mono vai ter 44100 frames( cada frame contendo 512 inteiros ) e teremos 44100 samples.
+     * Um som mono vai ter 44100 frames( cada chunk-size de 1024 samples ) 44100/1024 = 43 fps
+     * Um som stereo vai ter 44100 frames( cada chunk-size de 2048 samples ) 88200/2048 = 43 fps
 
 
  * Codec
@@ -194,3 +229,8 @@ G) Understand FFMPEG with source code
    * basic literacy
    * low-level-code
    * libav
+
+
+
+
+   https://www.dalemultimedia.com/cv_root/note_aud/audio.htm
