@@ -117,11 +117,11 @@ exemplo de imagem de um som com sample hate alto e sample rate baixo
 
 <p> </p>
 
-| WAV format | # of possible values (per sample) | range |
+| BIT Depth | # of possible values (per sample) | range |
 | ------ | ----------------------------------- | ------- |
-| 32-bit PCM | 4,294,967,296 | -2147483648 ~ +2147483647 |
-| 16-bit PCM | 65,536 | -32768 ~ +32767 |
-| 8-bit PCM | 256 | 0 ~ 255 |
+| 32-bit | 4,294,967,296 | -2147483648 ~ +2147483647 |
+| 16-bit | 65,536 | -32768 ~ +32767 |
+| 8-bit | 256 | 0 ~ 255 |
                                       
                              
 #### Bit Rate                         (44100 * 16 * channel_count)/1000
