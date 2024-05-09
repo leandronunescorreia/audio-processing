@@ -1,4 +1,4 @@
-# audio-processing
+# audio-processing 101 with python and jupyter notebook
 
 - conda create -n audio python=3.11 -y
 - conda activate audio
