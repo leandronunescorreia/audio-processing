@@ -1,5 +1,8 @@
 # audio-processing 101 with python and jupyter notebook
 
+
+https://docs.anaconda.com/free/miniconda/miniconda-install/
+
 - conda create -n audio python=3.11 -y
 - conda activate audio
 - pip install notebook numpy matplotlib scipy cython
